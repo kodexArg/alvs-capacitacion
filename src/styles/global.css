@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@theme {
+  /* ALVS Brand palette */
+  --color-alvs-dark:    #05092E;
+  --color-alvs-surface: #0D1560;
+  --color-alvs-navy:    #0A0E6E;
+  --color-alvs-blue:    #4040F0;
+  --color-alvs-cyan:    #00FFD4;
+  --color-alvs-white:   #F0F4FF;
+  --color-alvs-muted:   #7B83C4;
+
+  /* Typography */
+  --font-sans: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+
+  /* Slide-specific sizing (vmin-based for consistent scaling) */
+  --text-slide-hero:    clamp(2.5rem, 7vw, 6rem);
+  --text-slide-title:   clamp(1.8rem, 4.5vw, 3.8rem);
+  --text-slide-body:    clamp(1rem, 2.2vw, 1.8rem);
+  --text-slide-caption: clamp(0.75rem, 1.5vw, 1.2rem);
+  --text-slide-stat:    clamp(4rem, 12vw, 10rem);
+}
+
+/* ─── Reset base ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background-color: var(--color-alvs-dark);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Slide wrapper ─── */
+.deck {
+  position: fixed;
+  inset: 0;
+  display: grid;
+}
+
+.slide {
+  grid-area: 1 / 1;
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(2rem, 5vw, 4rem);
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+
+.slide.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: all;
+}
+
+.slide.exit {
+  opacity: 0;
+  transform: translateX(-60px);
+}
+
+/* ─── Cyan accent line ─── */
+.accent-line {
+  width: clamp(3rem, 8vw, 6rem);
+  height: 3px;
+  background: var(--color-alvs-cyan);
+  border-radius: 2px;
+  margin-bottom: 1.5rem;
+}
+
+/* ─── Progress bar ─── */
+.progress-bar {
+  position: fixed;
+  bottom: 0; left: 0;
+  height: 3px;
+  background: var(--color-alvs-cyan);
+  transition: width 0.4s ease;
+  z-index: 50;
+}

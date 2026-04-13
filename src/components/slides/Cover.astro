@@ -1,0 +1,48 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  meta?: string;
+}
+const { title, subtitle, meta } = Astro.props;
+---
+<section
+  data-slide
+  class="slide"
+  style="background: linear-gradient(135deg, var(--color-alvs-dark) 60%, var(--color-alvs-navy) 100%);"
+>
+  <!-- Logo mark top-left -->
+  <div class="mb-auto">
+    <span class="text-[color:var(--color-alvs-cyan)] font-bold tracking-widest text-[length:var(--text-slide-caption)] uppercase">
+      ALVS Group
+    </span>
+  </div>
+
+  <!-- Content centered -->
+  <div class="flex flex-col justify-center flex-1 max-w-5xl">
+    <div class="accent-line"></div>
+    <h1
+      class="font-bold text-[color:var(--color-alvs-white)] leading-tight mb-6"
+      style="font-size: var(--text-slide-hero);"
+    >
+      {title}
+    </h1>
+    {subtitle && (
+      <p
+        class="text-[color:var(--color-alvs-cyan)] font-medium leading-relaxed"
+        style="font-size: var(--text-slide-body);"
+      >
+        {subtitle}
+      </p>
+    )}
+  </div>
+
+  <!-- Meta bottom -->
+  {meta && (
+    <div class="mt-auto">
+      <p class="text-[color:var(--color-alvs-muted)] text-[length:var(--text-slide-caption)]">
+        {meta}
+      </p>
+    </div>
+  )}
+</section>

@@ -1,0 +1,36 @@
+---
+interface Props {
+  stat: string;
+  label: string;
+  context?: string;
+}
+const { stat, label, context } = Astro.props;
+---
+<section
+  data-slide
+  class="slide items-center justify-center text-center"
+  style="background-color: var(--color-alvs-dark);"
+>
+  <div class="flex flex-col items-center gap-4 max-w-4xl mx-auto">
+    <p
+      class="font-bold leading-none text-[color:var(--color-alvs-cyan)]"
+      style="font-size: var(--text-slide-stat);"
+    >
+      {stat}
+    </p>
+    <p
+      class="font-semibold text-[color:var(--color-alvs-white)]"
+      style="font-size: var(--text-slide-title);"
+    >
+      {label}
+    </p>
+    {context && (
+      <p
+        class="text-[color:var(--color-alvs-muted)] mt-4"
+        style="font-size: var(--text-slide-body);"
+      >
+        {context}
+      </p>
+    )}
+  </div>
+</section>

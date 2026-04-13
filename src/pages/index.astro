@@ -1,47 +1,63 @@
 ---
-
+import Presentation from '../layouts/Presentation.astro';
+import Cover    from '../components/slides/Cover.astro';
+import Content  from '../components/slides/Content.astro';
+import Stat     from '../components/slides/Stat.astro';
+import Closing  from '../components/slides/Closing.astro';
 ---
+<Presentation title="IA en tu trabajo — ALVS Capacitación">
 
-<html lang="es">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>ALVS Capacitación IA</title>
-		<style>
-			body {
-				margin: 0;
-				font-family: system-ui, sans-serif;
-				background: #0f172a;
-				color: #f1f5f9;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				min-height: 100vh;
-			}
-			.hero {
-				text-align: center;
-				padding: 2rem;
-			}
-			h1 {
-				font-size: 3rem;
-				font-weight: 800;
-				margin-bottom: 0.5rem;
-				background: linear-gradient(135deg, #38bdf8, #818cf8);
-				-webkit-background-clip: text;
-				-webkit-text-fill-color: transparent;
-			}
-			p {
-				color: #94a3b8;
-				font-size: 1.2rem;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="hero">
-			<h1>ALVS Capacitación IA</h1>
-			<p>Presentación en construcción — próximamente.</p>
-		</div>
-	</body>
-</html>
+  <Cover
+    title="Inteligencia Artificial en tu trabajo"
+    subtitle="Cómo usar IA para trabajar mejor, más rápido y con más confianza."
+    meta="ALVS Group · Capacitación interna · 2026"
+  />
+
+  <Content title="¿Qué vamos a ver hoy?" accent="hoy">
+    <ul class="space-y-5 list-none">
+      {[
+        'Qué es la IA y qué no es',
+        'Herramientas que ya podés usar ahora',
+        'Casos reales dentro de ALVS',
+        'Límites, riesgos y buenas prácticas',
+        'Espacio de preguntas y práctica',
+      ].map(item => (
+        <li class="flex items-start gap-4">
+          <span style="color:var(--color-alvs-cyan); flex-shrink:0;">→</span>
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  </Content>
+
+  <Stat
+    stat="73%"
+    label="de los trabajos van a cambiar con la IA"
+    context="No desaparecer — cambiar. La diferencia la hace quién se prepara."
+  />
+
+  <Content title="Lo que la IA hace bien" accent="bien">
+    <div class="grid grid-cols-2 gap-6 h-full">
+      {[
+        { icon: '✍️', text: 'Redactar y resumir textos' },
+        { icon: '🔍', text: 'Buscar y organizar información' },
+        { icon: '📊', text: 'Analizar datos y encontrar patrones' },
+        { icon: '💬', text: 'Responder preguntas complejas' },
+      ].map(({ icon, text }) => (
+        <div
+          class="flex items-center gap-4 rounded-xl p-5"
+          style="background-color: var(--color-alvs-surface);"
+        >
+          <span class="text-4xl">{icon}</span>
+          <span style="font-size: var(--text-slide-body);">{text}</span>
+        </div>
+      ))}
+    </div>
+  </Content>
+
+  <Closing
+    message="¿Preguntas?"
+    contact="capacitacion@alvsgroup.com"
+  />
+
+</Presentation>

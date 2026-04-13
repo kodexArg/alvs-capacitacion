@@ -1,0 +1,35 @@
+---
+interface Props {
+  title: string;
+  accent?: string; // word highlighted in cyan within the title
+}
+const { title, accent } = Astro.props;
+
+// Replace accent word with cyan span
+const renderedTitle = accent
+  ? title.replace(accent, `<span style="color:var(--color-alvs-cyan)">${accent}</span>`)
+  : title;
+---
+<section
+  data-slide
+  class="slide"
+  style="background-color: var(--color-alvs-dark);"
+>
+  <!-- Title area -->
+  <div class="mb-8 md:mb-12">
+    <div class="accent-line"></div>
+    <h2
+      class="font-semibold text-[color:var(--color-alvs-white)] leading-tight"
+      style="font-size: var(--text-slide-title);"
+      set:html={renderedTitle}
+    />
+  </div>
+
+  <!-- Content slot -->
+  <div
+    class="flex-1 text-[color:var(--color-alvs-white)] leading-relaxed space-y-4"
+    style="font-size: var(--text-slide-body);"
+  >
+    <slot />
+  </div>
+</section>

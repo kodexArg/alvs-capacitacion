@@ -1,0 +1,92 @@
+---
+interface Props {
+  title?: string;
+}
+const { title = 'ALVS Capacitación IA' } = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/styles/global.css" />
+</head>
+<body
+  x-data="deck()"
+  x-init="init()"
+  @keydown.right.window="next()"
+  @keydown.left.window="prev()"
+  @keydown.space.window.prevent="next()"
+  @keydown.f.window="fullscreen()"
+>
+
+  <div class="deck" id="deck">
+    <slot />
+  </div>
+
+  <!-- Progress bar -->
+  <div
+    class="progress-bar"
+    :style="`width: ${((current + 1) / total) * 100}%`"
+  ></div>
+
+  <!-- Slide counter -->
+  <div
+    class="fixed bottom-4 right-6 z-50 font-sans text-[length:var(--text-slide-caption)] text-[color:var(--color-alvs-muted)] tabular-nums select-none"
+    x-text="`${current + 1} / ${total}`"
+  ></div>
+
+  <!-- Hint teclado (desaparece después del primer avance) -->
+  <div
+    class="fixed bottom-4 left-6 z-50 text-[length:var(--text-slide-caption)] text-[color:var(--color-alvs-muted)] select-none transition-opacity duration-500"
+    :class="current > 0 ? 'opacity-0' : 'opacity-100'"
+  >
+    → espacio / flechas · F pantalla completa
+  </div>
+
+  <script src="//unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('deck', () => ({
+        current: 0,
+        total: 0,
+        slides: [],
+
+        init() {
+          this.slides = Array.from(document.querySelectorAll('[data-slide]'));
+          this.total = this.slides.length;
+          this.render();
+
+          // Touch/swipe support
+          let startX = 0;
+          document.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
+          document.addEventListener('touchend', e => {
+            const dx = e.changedTouches[0].clientX - startX;
+            if (Math.abs(dx) > 50) dx < 0 ? this.next() : this.prev();
+          });
+        },
+
+        render() {
+          this.slides.forEach((slide, i) => {
+            slide.classList.remove('active', 'exit');
+            if (i === this.current) slide.classList.add('active');
+            else if (i < this.current) slide.classList.add('exit');
+          });
+        },
+
+        next() { if (this.current < this.total - 1) { this.current++; this.render(); } },
+        prev() { if (this.current > 0) { this.current--; this.render(); } },
+
+        fullscreen() {
+          if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+          else document.exitFullscreen();
+        },
+      }));
+    });
+  </script>
+</body>
+</html>
