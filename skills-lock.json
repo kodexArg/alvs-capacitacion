@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "skills": {
+    "amplify-workflow": {
+      "source": "awslabs/agent-plugins",
+      "sourceType": "github",
+      "computedHash": "a8585c66e5b4f5b9123b146d195978b832ad4a23e1ee6d7ab79cc0f78e3e5e23"
+    },
+    "astro": {
+      "source": "astrolicious/agent-skills",
+      "sourceType": "github",
+      "computedHash": "ebefe26b231d32379c14e41a46c2de7b4b0184543bedab7febdabe4fb21fba4e"
+    },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "computedHash": "063a0e6448123cd359ad0044cc46b0e490cc7964d45ef4bb9fd842bd2ffbca67"
+    }
+  }
+}
